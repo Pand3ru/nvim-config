@@ -28,6 +28,27 @@ require("lazy").setup({
       end,
     },
 
+    {
+      "lervag/vimtex",
+      lazy = false, 
+      init = function()
+        vim.g.vimtex_view_method = "zathura"
+        vim.g.vimtex_compiler_method = "latexmk"
+    
+        vim.g.vimtex_compiler_latexmk = {
+          continuous = 1,
+          options = {
+            "-pdf",
+            "-interaction=nonstopmode",
+            "-synctex=1",
+          },
+        }
+    
+        vim.g.vimtex_quickfix_mode = 0
+      end,
+    }
+
+
     -- Telescope
     {
       'nvim-telescope/telescope.nvim',
@@ -66,6 +87,10 @@ require("lazy").setup({
         },
         sources = {
           default = { "lsp", "path", "snippets", "buffer" },
+          per_filetype = {
+              tex = { "buffer", "path", "snippets" },
+
+          },
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },
         completion = {
